@@ -56,6 +56,8 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     if (!target) return;
     event.preventDefault();
     history.pushState(null, '', '#' + id);
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
     target.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   });
 });

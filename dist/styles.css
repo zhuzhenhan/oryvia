@@ -13,4 +13,5 @@
 @media(max-width:1100px){.module-card p{min-height:80px}.loop-art{width:151%;left:-36%;top:91px}}
 @media(max-width:760px){.loop-art{width:115%;left:-10%;top:-20px}.hero h1{letter-spacing:-2.8px}.hero-art .art-caption{font-size:10px}.module-card p{min-height:140px}.hero-bottom>div{font-size:10px}.hero-caption{font-size:12px}.product-tabs button{font-size:14px}.product-copy h3{font-size:31px}.capability-body{font-size:16px}.orbit-label{font-size:12px}.why-grid p{font-size:16px}}
 @media(max-width:430px){.loop-art{top:-10px}.module-card p{min-height:0}.hero-art .art-caption{font-size:10px}.hero-bottom>div{font-size:10px}}
+:root{--muted:#686d71}.orange,.demo-button[aria-disabled=true]:hover{background:#c64a28}.orange:hover{background:#ad3d20}.capability[open] summary,.desktop-nav a.active,.desktop-nav a:hover,.text-link:hover,.product-tabs button:hover,.solution-tabs button:hover{color:#b74624}.solution-content li>span,.why-index,.product-copy .eyebrow{color:#b74624}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
