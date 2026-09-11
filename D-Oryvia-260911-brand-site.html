@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oryvia — Everything agentic commerce needs</title>
+<meta name="description" content="Oryvia is the all-in-one growth and monetization infrastructure for AI agents and the people who build them: marketing growth, AI payments, fuel supply, and monetization.">
+<style>
+:root{
+  --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413; --clay:#D97757; --oat:#E3DACC;
+  --olive:#788C5D; --rust:#B04A3F; --gray-150:#F0EEE6; --gray-300:#D1CFC5;
+  --gray-500:#87867F; --gray-700:#3D3D3A;
+  --serif:ui-serif,Georgia,'Times New Roman',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Monaco,monospace;
+  --radius-panel:12px; --radius-row:8px; --border:1.5px solid var(--gray-300); --maxw:1100px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ivory);color:var(--gray-700);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+section{padding:92px 0;scroll-margin-top:72px}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:28px}
+.alt{background:var(--gray-150)}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:500;color:var(--slate)}
+p{margin:0}
+.t-hero{font-size:clamp(38px,5.2vw,60px);line-height:1.08;letter-spacing:-.025em}
+.t-h2{font-size:clamp(28px,3.4vw,38px);line-height:1.18;letter-spacing:-.015em}
+.t-h3{font-size:21px;line-height:1.3}
+.t-lead{font-size:18px;line-height:1.6;color:var(--gray-700);max-width:640px}
+.t-body{font-size:15.5px;line-height:1.62;color:var(--gray-700);max-width:680px}
+.t-small{font-size:13.5px;line-height:1.5;color:var(--gray-500)}
+.eyebrow{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--gray-500)}
+hr.rule{border:none;border-top:1px solid var(--gray-300);margin:26px 0 40px}
+a{color:inherit}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:14.5px;font-weight:500;
+     padding:11px 22px;border-radius:var(--radius-row);text-decoration:none;border:1.5px solid transparent;
+     transition:transform 120ms ease,background 120ms ease;cursor:pointer}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--clay);color:var(--ivory)}
+.btn-ghost{background:transparent;color:var(--slate);border-color:var(--gray-300)}
+.btn-onDark{background:var(--ivory);color:var(--slate)}
+.btn-outlineDark{background:transparent;color:var(--ivory);border-color:rgba(250,249,245,.32)}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;height:64px;display:flex;align-items:center;
+     background:rgba(250,249,245,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--gray-300);
+     transition:box-shadow 160ms ease}
+.nav.scrolled{box-shadow:0 1px 12px rgba(20,20,19,.06)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;width:100%}
+.mark{display:flex;align-items:center;gap:9px;font-family:var(--serif);font-size:21px;font-weight:500;
+      color:var(--slate);text-decoration:none;letter-spacing:-.01em}
+.mark i{width:7px;height:7px;border-radius:2px;background:var(--clay);display:block}
+.navlinks{display:flex;gap:26px}
+.navlinks a{font-size:13.5px;color:var(--gray-700);text-decoration:none;transition:color 120ms ease}
+.navlinks a:hover,.navlinks a.active{color:var(--clay)}
+.nav .btn{padding:9px 18px;font-size:13.5px}
+
+/* hero */
+#hero{padding:116px 0 96px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:56px;align-items:center}
+.hero-svg{width:100%;height:auto;display:block}
+.hero-svg text{font-family:var(--mono)}
+
+/* trust bar */
+.trust{background:var(--oat);padding:22px 0}
+.trust .t-small{color:var(--slate);text-align:center;max-width:720px;margin-inline:auto}
+.markets{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--gray-700);
+         text-align:center;margin-top:10px}
+
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.pcard{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:26px 24px 28px;
+       display:flex;flex-direction:column;transition:transform 140ms ease,border-color 140ms ease}
+.pcard:hover{transform:translateY(-3px);border-color:var(--clay)}
+.pbadge{width:28px;height:28px;border-radius:var(--radius-row);background:var(--oat);display:grid;place-items:center;
+        font-family:var(--mono);font-size:11.5px;color:var(--slate);margin-bottom:16px}
+.pcard hr{border:none;border-top:1px solid var(--gray-300);margin:14px 0}
+.pcard .t-small{color:var(--gray-700);flex:1}
+.jump{font-family:var(--mono);font-size:11.5px;color:var(--clay);text-decoration:none;margin-top:18px;display:block}
+
+/* flow rail */
+.rail{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+.rail::before{content:"";position:absolute;top:15px;left:10%;right:10%;border-top:1.5px solid var(--gray-300);z-index:0}
+.step{position:relative;z-index:1}
+.sbadge{width:30px;height:30px;border-radius:50%;background:var(--clay);color:var(--ivory);display:grid;
+        place-items:center;font-family:var(--mono);font-size:12px;margin-bottom:16px}
+.sname{font-size:15px;font-weight:600;color:var(--slate);margin-bottom:6px}
+.recycle{font-family:var(--mono);font-size:11.5px;color:var(--clay);margin-top:26px}
+
+/* feature sections */
+.feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start}
+.feat .copy .t-lead{margin-top:14px}
+.feat .copy .t-body{margin-top:18px}
+.caps{display:flex;flex-direction:column}
+.cap{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:16px 0;border-top:1px solid var(--gray-300)}
+.cap:first-child{border-top:none;padding-top:0}
+.caps.compact .cap{padding:13px 0}
+.cnum{font-family:var(--mono);font-size:11.5px;color:var(--clay);padding-top:2px}
+.ctitle{font-size:14.5px;font-weight:600;color:var(--slate);margin-bottom:5px}
+.subhead{display:inline-block;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;
+         background:var(--oat);color:var(--slate);padding:5px 11px;border-radius:var(--radius-row);margin-bottom:16px}
+.subpanel + .subpanel{margin-top:32px;padding-top:32px;border-top:1.5px solid var(--gray-300)}
+.methods{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.mlabel{display:inline-block;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;
+        background:var(--gray-150);color:var(--slate);padding:3px 8px;border-radius:4px;margin-right:8px}
+.alt .mlabel{background:var(--white)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.chip{background:var(--gray-150);border:1px solid var(--gray-300);border-radius:999px;padding:6px 13px;
+      font-size:12.5px;color:var(--gray-700)}
+.alt .chip{background:var(--white)}
+.cta-line{margin-top:30px;padding-left:16px;border-left:3px solid var(--clay)}
+.cta-line h3{font-size:19px}
+
+/* value loop */
+.diagram{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:28px;
+         overflow-x:auto;margin-top:40px}
+.diagram svg{display:block;min-width:780px}
+.diagram text{font-family:var(--mono)}
+.caption{margin-top:14px}
+
+/* solutions */
+.solutions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.scard{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:24px}
+.srole{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--gray-500);
+       display:block;margin-bottom:12px}
+.scard h3{margin-bottom:10px}
+
+/* why us */
+.why{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 44px}
+.why-item span.sq{width:7px;height:7px;border-radius:2px;background:var(--clay);display:block;margin-bottom:14px}
+.why-item h3{font-size:20px;margin-bottom:10px}
+
+/* cta band + footer */
+.cta-band{background:var(--slate);color:var(--ivory);padding:88px 0;text-align:center}
+.cta-band h2{color:var(--ivory);font-size:clamp(30px,4vw,42px);line-height:1.15;letter-spacing:-.02em}
+.cta-band p{color:rgba(250,249,245,.72);font-size:16px;line-height:1.6;max-width:620px;margin:18px auto 0}
+.cta-band .btn-row{justify-content:center}
+footer{background:var(--slate);color:rgba(250,249,245,.68);padding:60px 0 40px;
+       border-top:1px solid rgba(250,249,245,.14)}
+.fgrid{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:36px}
+footer .mark{color:var(--ivory);margin-bottom:16px}
+.fblurb{font-size:13.5px;line-height:1.6;color:rgba(250,249,245,.68);max-width:300px}
+.fhead{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--oat);
+       margin-bottom:14px}
+.fcol a{display:block;font-size:13px;color:rgba(250,249,245,.68);text-decoration:none;padding:4px 0;
+        transition:color 120ms ease}
+.fcol a:hover{color:var(--ivory)}
+.fbottom{border-top:1px solid rgba(250,249,245,.14);margin-top:44px;padding-top:22px;display:flex;
+         flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:flex-start}
+.fnotice{font-family:var(--mono);font-size:11.5px;line-height:1.6;color:rgba(250,249,245,.45);max-width:720px}
+.fcopy{font-family:var(--mono);font-size:11.5px;color:rgba(250,249,245,.45)}
+
+@media (max-width:1000px){
+  .pillars{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .solutions{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fgrid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  section{padding:72px 0}
+  #hero{padding:84px 0 72px}
+  .navlinks{display:none}
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .feat{grid-template-columns:1fr;gap:40px}
+  .feat .copy{order:1}
+  .feat .caps,.feat .capwrap{order:2}
+  .rail{grid-template-columns:1fr;gap:0;border-left:2px solid var(--gray-300);padding-left:28px}
+  .rail::before{display:none}
+  .step{padding-bottom:26px}
+  .sbadge{position:absolute;left:-43px;top:0}
+  .why{grid-template-columns:1fr;gap:28px}
+}
+@media (max-width:640px){
+  .pillars,.solutions,.fgrid{grid-template-columns:1fr}
+  .fbottom{flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a class="mark" href="#hero"><i></i>Oryvia</a>
+    <div class="navlinks">
+      <a href="#pillars">Product</a>
+      <a href="#loop">How it works</a>
+      <a href="#solutions">Solutions</a>
+      <a href="#why">Why us</a>
+    </div>
+    <a class="btn btn-primary" href="#cta">Book a demo</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Everything agentic commerce needs</div>
+      <h1 class="t-hero" style="margin-top:18px">Give every AI agent full commercial capability: acquisition, payments, supply, and revenue.</h1>
+      <p class="t-lead" style="margin-top:24px">Oryvia is the all-in-one growth and monetization infrastructure for AI agents and the people who build them — from marketing and demand generation to AI-native payments, from token and content supply to a closed commercial loop. Every agent can run autonomously and earn continuously.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#cta">Book a demo</a>
+        <a class="btn btn-ghost" href="#pillars">See the platform</a>
+      </div>
+    </div>
+    <div>
+      <svg class="hero-svg" viewBox="0 0 420 360" role="img" aria-label="Oryvia's four modules circulating around an agent: marketing growth, AI payments, fuel supply, and monetization, connected by a loop in which earnings are reinvested.">
+        <defs>
+          <marker id="hArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#D97757"></path>
+          </marker>
+        </defs>
+        <path d="M210,308 A128,128 0 1 1 268,295" fill="none" stroke="#D97757" stroke-width="1.5" stroke-dasharray="5 5" opacity=".7" marker-end="url(#hArrow)"></path>
+        <rect x="128" y="14" width="164" height="50" rx="10" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1.5"></rect>
+        <text x="210" y="36" font-size="12" font-weight="600" fill="#141413" text-anchor="middle">Marketing Growth</text>
+        <text x="210" y="52" font-size="10.5" fill="#87867F" text-anchor="middle">acquire the right users</text>
+        <rect x="266" y="155" width="150" height="50" rx="10" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1.5"></rect>
+        <text x="341" y="177" font-size="12" font-weight="600" fill="#141413" text-anchor="middle">AI Payments</text>
+        <text x="341" y="193" font-size="10.5" fill="#87867F" text-anchor="middle">collect &amp; settle</text>
+        <rect x="128" y="296" width="164" height="50" rx="10" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1.5"></rect>
+        <text x="210" y="318" font-size="12" font-weight="600" fill="#141413" text-anchor="middle">Monetization</text>
+        <text x="210" y="334" font-size="10.5" fill="#87867F" text-anchor="middle">capability to revenue</text>
+        <rect x="4" y="155" width="150" height="50" rx="10" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1.5"></rect>
+        <text x="79" y="177" font-size="12" font-weight="600" fill="#141413" text-anchor="middle">Fuel Supply</text>
+        <text x="79" y="193" font-size="10.5" fill="#87867F" text-anchor="middle">tokens &amp; content</text>
+        <rect x="150" y="156" width="120" height="48" rx="10" fill="#141413"></rect>
+        <text x="210" y="177" font-size="12" font-weight="600" fill="#FAF9F5" text-anchor="middle">YOUR AGENT</text>
+        <text x="210" y="193" font-size="10.5" fill="#E3DACC" text-anchor="middle">runs &amp; earns</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST BAR ============ -->
+<div class="trust">
+  <div class="wrap">
+    <p class="t-small">Partnered with the world's leading card networks, payment networks, and foundation-model providers.</p>
+    <div class="markets">SINGAPORE · HONG KONG · JAPAN · EUROPE · UNITED STATES</div>
+  </div>
+</div>
+
+<!-- ============ PILLARS ============ -->
+<section id="pillars">
+  <div class="wrap">
+    <div class="eyebrow">Value proposition</div>
+    <h2 class="t-h2" style="margin-top:14px">The four pillars of the agent economy</h2>
+    <p class="t-lead" style="margin-top:18px">AI agents are evolving from "tools that answer questions" into "economic actors that close transactions on their own." But before an agent can truly participate in commerce, four problems have to be solved at once: how it gets discovered, how it gets paid, how it keeps its compute and content flowing, and how its capabilities turn into revenue. Oryvia unifies all four into a single platform, so builders never have to stitch together a dozen vendors to take an agent from launch to profit.</p>
+    <hr class="rule">
+    <div class="pillars">
+      <div class="pcard">
+        <div class="pbadge">01</div>
+        <h3 class="t-h3">Marketing Growth</h3>
+        <hr>
+        <p class="t-small">An intelligent demand-generation and acquisition engine built for AI agents.</p>
+        <a class="jump" href="#growth">Explore &rarr;</a>
+      </div>
+      <div class="pcard">
+        <div class="pbadge">02</div>
+        <h3 class="t-h3">AI Payments</h3>
+        <hr>
+        <p class="t-small">A native payment layer that lets agents send and receive money safely.</p>
+        <a class="jump" href="#payments">Explore &rarr;</a>
+      </div>
+      <div class="pcard">
+        <div class="pbadge">03</div>
+        <h3 class="t-h3">Fuel Supply</h3>
+        <hr>
+        <p class="t-small">A unified supply network for token compute and content data.</p>
+        <a class="jump" href="#fuel">Explore &rarr;</a>
+      </div>
+      <div class="pcard">
+        <div class="pbadge">04</div>
+        <h3 class="t-h3">Monetization</h3>
+        <hr>
+        <p class="t-small">A closed loop that turns capability into settled revenue.</p>
+        <a class="jump" href="#monetize">Explore &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="loop" class="alt">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2 class="t-h2" style="margin-top:14px">From first click to final settlement — one value chain that runs itself</h2>
+    <hr class="rule">
+    <div class="rail">
+      <div class="step"><div class="sbadge">1</div><div class="sname">Acquire</div><p class="t-small">Intelligent campaigns put your agent in front of the right consumers and enterprise buyers.</p></div>
+      <div class="step"><div class="sbadge">2</div><div class="sname">Transact</div><p class="t-small">Users or other agents pay through the AI payment layer, with support for fiat, card, and stablecoin.</p></div>
+      <div class="step"><div class="sbadge">3</div><div class="sname">Consume</div><p class="t-small">The agent draws on platform-supplied token compute and content resources to do the work.</p></div>
+      <div class="step"><div class="sbadge">4</div><div class="sname">Settle</div><p class="t-small">The platform automatically reconciles revenue, cost, and revenue share; builders get paid on a cycle.</p></div>
+      <div class="step"><div class="sbadge">5</div><div class="sname">Reinvest</div><p class="t-small">Earnings convert directly into the next round of campaign budget and compute quota, creating a growth flywheel.</p></div>
+    </div>
+    <div class="recycle">&#8635; earnings recycle into step 1</div>
+  </div>
+</section>
+
+<!-- ============ MARKETING GROWTH ============ -->
+<section id="growth">
+  <div class="wrap feat">
+    <div class="copy">
+      <div class="eyebrow">Marketing Growth</div>
+      <h2 class="t-h2" style="margin-top:14px">The demand-generation engine built for AI agents</h2>
+      <p class="t-lead">Get your agent discovered by the right users, and grow at a cost you can actually measure.</p>
+      <p class="t-body">Traditional ad systems were designed around web pages and mobile apps. Agent distribution has already moved elsewhere — into conversational entry points, agent marketplaces, model platforms, and enterprise procurement channels. Oryvia's Marketing Growth module rebuilds campaign logic for that reality: it treats the agent's capabilities and conversion data as the core signal, generates creative automatically, matches it to the right channels, and ties every unit of budget directly to the transaction revenue it produced — attribution in the real sense of the word.</p>
+      <div class="chips">
+        <span class="chip">Cold-start acquisition</span>
+        <span class="chip">B2B lead generation</span>
+        <span class="chip">Cross-border promotion</span>
+        <span class="chip">Paid-conversion optimization</span>
+      </div>
+      <div class="cta-line">
+        <h3>Put transaction data behind every dollar of budget</h3>
+        <div class="btn-row" style="margin-top:18px"><a class="btn btn-primary" href="#cta">Request a campaign plan</a></div>
+      </div>
+    </div>
+    <div class="caps">
+      <div class="cap"><div class="cnum">01</div><div><div class="ctitle">Multi-channel intelligent distribution</div><p class="t-small">Covers search, social, agent marketplaces, and model platforms, with unified budget and bidding strategy and targeting by country, industry, and user profile.</p></div></div>
+      <div class="cap"><div class="cnum">02</div><div><div class="ctitle">Automated creative generation</div><p class="t-small">Uses the agent's capability description and historical conversation data to generate multilingual ad copy, landing pages, and demos — then A/B tests them continuously.</p></div></div>
+      <div class="cap"><div class="cnum">03</div><div><div class="ctitle">Transaction-level attribution</div><p class="t-small">Campaign data is wired straight into the AI Payments module, so you can trace the full path from impression to click to trial to paid, and judge performance on real revenue rather than clicks.</p></div></div>
+      <div class="cap"><div class="cnum">04</div><div><div class="ctitle">Budget&ndash;revenue coupling</div><p class="t-small">Automatically recycle a configurable share of your agent's transaction revenue back into campaign budget, creating a self-sustaining, revenue-driven growth loop.</p></div></div>
+      <div class="cap"><div class="cnum">05</div><div><div class="ctitle">Compliance and brand safety</div><p class="t-small">Built-in advertising compliance rules and brand-safety filtering for each market, so your creative always meets local regulatory requirements.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AI PAYMENTS ============ -->
+<section id="payments" class="alt">
+  <div class="wrap feat">
+    <div class="caps">
+      <div class="cap"><div class="cnum">01</div><div><div class="ctitle">Agent payment identity and authorization</div><p class="t-small">Issue each agent its own payment credential, with user-defined limits, merchant scope, and validity windows — so an agent can only transact inside what it was authorized to do.</p></div></div>
+      <div class="cap"><div class="cnum">02</div><div><div class="ctitle">Multiple payment methods</div>
+        <div class="methods">
+          <p class="t-small"><span class="mlabel">Card</span>Virtual cards and network tokens issued via tokenization, compatible with the major card networks.</p>
+          <p class="t-small"><span class="mlabel">Stablecoin</span>Compliant stablecoin collection, disbursement, and automatic conversion.</p>
+          <p class="t-small"><span class="mlabel">Local</span>Local wallets and transfer rails across key markets.</p>
+        </div>
+      </div></div>
+      <div class="cap"><div class="cnum">03</div><div><div class="ctitle">Agent-to-agent protocol payments</div><p class="t-small">Native support for A2A, MCP, UCP, and X402 agent payment and communication protocols, so agents can settle with each other automatically per call, per task outcome, or per subscription period.</p></div></div>
+      <div class="cap"><div class="cnum">04</div><div><div class="ctitle">Real-time risk control and compliance</div><p class="t-small">An agent-specific risk model built on years of payments risk experience — anomalous-call detection, limit management, AML screening, and transaction monitoring — aligned with regulatory requirements in Singapore, Hong Kong, and the United States.</p></div></div>
+      <div class="cap"><div class="cnum">05</div><div><div class="ctitle">Automatic reconciliation and settlement</div><p class="t-small">Every transaction is booked in real time, with automatic multi-currency, multi-entity reconciliation and revenue-share settlement that plugs directly into enterprise finance systems.</p></div></div>
+    </div>
+    <div class="copy">
+      <div class="eyebrow">AI Payments</div>
+      <h2 class="t-h2" style="margin-top:14px">A payment layer born for AI agents</h2>
+      <p class="t-lead">Let agents collect, pay, and settle safely — across every transaction shape: human-to-agent and agent-to-agent.</p>
+      <p class="t-body">Once agents begin buying services on a user's behalf, calling paid APIs, or purchasing capability from other agents, the traditional payment stack runs into a new class of problems: identity, authorization, risk control, and reconciliation. Oryvia's AI Payments module is built on mature card-network infrastructure plus emerging agent payment protocols, giving every agent a verifiable payment identity, tightly scoped spending authority, and real-time settlement.</p>
+      <div class="chips">
+        <span class="chip">Purchases on a user's behalf</span>
+        <span class="chip">Per-call API settlement</span>
+        <span class="chip">Agent-to-agent revenue share</span>
+        <span class="chip">Cross-border multi-currency</span>
+      </div>
+      <div class="cta-line">
+        <h3>Make every agent transaction safe, compliant, and traceable</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FUEL SUPPLY ============ -->
+<section id="fuel">
+  <div class="wrap feat">
+    <div class="copy">
+      <div class="eyebrow">Fuel Supply</div>
+      <h2 class="t-h2" style="margin-top:14px">The compute and content supply network that keeps agents running</h2>
+      <p class="t-lead">Source token compute and content data in one place, and keep your agent running at optimal cost.</p>
+      <p class="t-body">Every thought and every action an agent takes burns tokens, and every completed task depends on high-quality content and data inputs. Sourcing compute and content piecemeal is both expensive and unreliable. Oryvia's Fuel Supply module consolidates multiple foundation-model providers and content suppliers into a single integration with intelligent routing and usage-based billing — so builders get stable, economical operating resources without negotiating and integrating vendor by vendor.</p>
+      <div class="chips">
+        <span class="chip">High-frequency, cost-sensitive agents</span>
+        <span class="chip">Real-time data agents</span>
+        <span class="chip">Media &amp; data institutions</span>
+      </div>
+      <div class="cta-line">
+        <h3>Give your agent fuel that is continuous, economical, and compliant</h3>
+        <div class="btn-row" style="margin-top:18px"><a class="btn btn-primary" href="#cta">Explore supply plans</a></div>
+      </div>
+    </div>
+    <div class="capwrap">
+      <div class="subpanel">
+        <span class="subhead">Token supply</span>
+        <div class="caps compact">
+          <div class="cap"><div class="cnum">01</div><div><div class="ctitle">One integration, every major model</div><p class="t-small">A single interface to the leading foundation models, automatically selecting the best model for each task by type, cost, and latency requirements.</p></div></div>
+          <div class="cap"><div class="cnum">02</div><div><div class="ctitle">Bulk procurement and cost optimization</div><p class="t-small">Preferential rates through pooled, at-scale procurement, plus caching, compression, and routing strategies that cut actual token consumption.</p></div></div>
+          <div class="cap"><div class="cnum">03</div><div><div class="ctitle">Quota management and prepayment</div><p class="t-small">Set token quotas per agent or per project, prepay in fiat or stablecoin, and net automatically against revenue from the AI Payments module.</p></div></div>
+          <div class="cap"><div class="cnum">04</div><div><div class="ctitle">Reliability guarantees</div><p class="t-small">Multi-supplier redundancy and automatic failover keep agents available through traffic spikes and provider incidents.</p></div></div>
+        </div>
+      </div>
+      <div class="subpanel">
+        <span class="subhead">Content supply</span>
+        <div class="caps compact">
+          <div class="cap"><div class="cnum">01</div><div><div class="ctitle">Licensed content and data sources</div><p class="t-small">Authorized news, industry data, product information, and professional knowledge bases — content your agent can legally use.</p></div></div>
+          <div class="cap"><div class="cnum">02</div><div><div class="ctitle">On-demand calls, usage-based billing</div><p class="t-small">Content is delivered through standard interfaces; agents pay for what they actually call, and fees settle automatically to the content owner through AI Payments.</p></div></div>
+          <div class="cap"><div class="cnum">03</div><div><div class="ctitle">Onboarding for content suppliers</div><p class="t-small">Content and data owners can list their assets as agent-consumable services and open up a new revenue stream.</p></div></div>
+          <div class="cap"><div class="cnum">04</div><div><div class="ctitle">Usage records and rights traceability</div><p class="t-small">Every content call is logged in full, keeping ownership unambiguous and revenue sharing transparent.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MONETIZATION ============ -->
+<section id="monetize" class="alt">
+  <div class="wrap">
+    <div class="feat">
+      <div class="caps">
+        <div class="cap"><div class="cnum">01</div><div><div class="ctitle">Flexible business-model configuration</div><p class="t-small">Subscription, per-call, outcome-based pricing, capability licensing, and revenue share — combinable per customer segment.</p></div></div>
+        <div class="cap"><div class="cnum">02</div><div><div class="ctitle">Usage metering and real-time billing</div><p class="t-small">Precisely meter the resource consumption and output of every call and every task, auto-generate invoices, and push them to AI Payments for collection.</p></div></div>
+        <div class="cap"><div class="cnum">03</div><div><div class="ctitle">Agent marketplace and distribution</div><p class="t-small">List your agent on the platform marketplace so enterprise buyers and other agents can discover, trial, and purchase it — with Marketing Growth wired in for promotion.</p></div></div>
+        <div class="cap"><div class="cnum">04</div><div><div class="ctitle">Multi-party revenue share and automatic settlement</div><p class="t-small">For tasks completed jointly by several agents and content providers, revenue is split by predefined rules and settled to each party automatically, with no manual intervention.</p></div></div>
+        <div class="cap"><div class="cnum">05</div><div><div class="ctitle">Revenue analytics and growth guidance</div><p class="t-small">Dashboards for revenue, cost, gross margin, and customer retention — plus data-driven recommendations on pricing and campaign spend.</p></div></div>
+      </div>
+      <div class="copy">
+        <div class="eyebrow">Monetization</div>
+        <h2 class="t-h2" style="margin-top:14px">From capability to revenue: the agent commercialization loop</h2>
+        <p class="t-lead">Turn every capability your agent has into revenue you can measure, settle, and grow.</p>
+        <p class="t-body">Plenty of agents are genuinely capable but have no path from capability to income. Oryvia's Monetization module provides the full toolchain — pricing, metering, collection, revenue share — so builders can profit through whichever business model fits, and keep tuning their revenue mix against real dashboard data.</p>
+        <div class="chips">
+          <span class="chip">Indie &amp; startup monetization</span>
+          <span class="chip">Internal cost allocation</span>
+          <span class="chip">Multi-agent revenue split</span>
+          <span class="chip">Enterprise capability licensing</span>
+        </div>
+        <div class="cta-line">
+          <h3>Turn your agent into a sustainably profitable business</h3>
+          <div class="btn-row" style="margin-top:18px"><a class="btn btn-primary" href="#cta">Start monetizing</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="diagram">
+      <svg viewBox="0 0 900 200" role="img" aria-label="The Oryvia value loop: campaigns lead to user acquisition, which leads to payment collected, from which token and content cost is deducted, leaving net revenue settled. A share of those earnings returns to campaign and compute budget, feeding back into campaigns.">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#87867F"></path>
+          </marker>
+          <marker id="arrowClay" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#D97757"></path>
+          </marker>
+        </defs>
+        <rect x="10" y="30" width="150" height="52" rx="10" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1.5"></rect>
+        <text x="85" y="61" font-size="11.5" fill="#141413" text-anchor="middle">Campaigns</text>
+        <rect x="192" y="30" width="150" height="52" rx="10" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1.5"></rect>
+        <text x="267" y="55" font-size="11.5" fill="#141413" text-anchor="middle">User</text>
+        <text x="267" y="70" font-size="11.5" fill="#141413" text-anchor="middle">acquisition</text>
+        <rect x="374" y="30" width="150" height="52" rx="10" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1.5"></rect>
+        <text x="449" y="55" font-size="11.5" fill="#141413" text-anchor="middle">Payment</text>
+        <text x="449" y="70" font-size="11.5" fill="#141413" text-anchor="middle">collected</text>
+        <rect x="556" y="30" width="150" height="52" rx="10" fill="rgba(176,74,63,0.08)" stroke="#B04A3F" stroke-width="1.5"></rect>
+        <text x="631" y="55" font-size="11.5" fill="#141413" text-anchor="middle">Token &amp; content</text>
+        <text x="631" y="70" font-size="11.5" fill="#141413" text-anchor="middle">cost deducted</text>
+        <rect x="738" y="30" width="152" height="52" rx="10" fill="rgba(120,140,93,0.10)" stroke="#788C5D" stroke-width="1.5"></rect>
+        <text x="814" y="55" font-size="11.5" fill="#141413" text-anchor="middle">Net revenue</text>
+        <text x="814" y="70" font-size="11.5" fill="#141413" text-anchor="middle">settled</text>
+        <line x1="164" y1="56" x2="186" y2="56" stroke="#87867F" stroke-width="1.5" marker-end="url(#arrow)"></line>
+        <line x1="346" y1="56" x2="368" y2="56" stroke="#87867F" stroke-width="1.5" marker-end="url(#arrow)"></line>
+        <line x1="528" y1="56" x2="550" y2="56" stroke="#87867F" stroke-width="1.5" marker-end="url(#arrow)"></line>
+        <line x1="710" y1="56" x2="732" y2="56" stroke="#87867F" stroke-width="1.5" marker-end="url(#arrow)"></line>
+        <path d="M814,86 L814,140 L85,140 L85,88" fill="none" stroke="#D97757" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrowClay)"></path>
+        <text x="449" y="162" font-size="10.5" fill="#D97757" text-anchor="middle">a share of earnings returns to campaign &amp; compute budget</text>
+      </svg>
+      <p class="t-small caption">The Oryvia value loop — acquisition spend, payment collection, fuel cost, and settlement share one account and data layer, so earnings can be recycled into the next growth cycle automatically.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUTIONS ============ -->
+<section id="solutions">
+  <div class="wrap">
+    <div class="eyebrow">Solutions</div>
+    <h2 class="t-h2" style="margin-top:14px">A fit for every role</h2>
+    <hr class="rule">
+    <div class="solutions">
+      <div class="scard"><span class="srole">Developers</span><h3 class="t-h3">Agent developers and startup teams</h3><p class="t-small">Acquisition, collection, compute procurement, and monetization in one stop — so you can focus on the product itself.</p></div>
+      <div class="scard"><span class="srole">Enterprise</span><h3 class="t-h3">Enterprise customers</h3><p class="t-small">Deploy agents inside a controlled budget and compliance framework, with transparent cost and measurable value.</p></div>
+      <div class="scard"><span class="srole">Compute providers</span><h3 class="t-h3">Model and compute providers</h3><p class="t-small">Reach agent demand at scale through the platform and win a steady stream of compute orders.</p></div>
+      <div class="scard"><span class="srole">Content owners</span><h3 class="t-h3">Content and data owners</h3><p class="t-small">Open your content as an agent-consumable service and unlock an entirely new revenue channel.</p></div>
+      <div class="scard"><span class="srole">Financial partners</span><h3 class="t-h3">Payment institutions and financial partners</h3><p class="t-small">Build the payment and settlement infrastructure of the agent economy with us.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section id="why" class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Why us</div>
+    <h2 class="t-h2" style="margin-top:14px">Built by people who have run real money at scale</h2>
+    <hr class="rule">
+    <div class="why">
+      <div class="why-item"><span class="sq"></span><h3>Deep payments infrastructure heritage</h3><p class="t-body">Our team brings years of front-line experience in card networks, issuing, acquiring, tokenization, and cross-border settlement — we understand the risk and compliance realities behind every single transaction.</p></div>
+      <div class="why-item"><span class="sq"></span><h3>Compliance-first global footprint</h3><p class="t-body">We hold and operate within payment licences and stablecoin regulatory frameworks across Singapore, Hong Kong, and Japan, giving cross-border agent transactions a compliant foundation.</p></div>
+      <div class="why-item"><span class="sq"></span><h3>Designed agent-native</h3><p class="t-body">From payment identity to protocol support, every capability is re-designed around agent autonomy, call frequency, and programmability — not retrofitted from a legacy product.</p></div>
+      <div class="why-item"><span class="sq"></span><h3>Four modules, one fabric</h3><p class="t-body">Marketing, payments, supply, and monetization share a single account and data layer, cutting integration cost and lifting operational efficiency.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING CTA ============ -->
+<div class="cta-band" id="cta">
+  <div class="wrap">
+    <h2>Let your agent start earning today</h2>
+    <p>Whether you are building a support agent, a content agent, a trading agent, or a vertical industry assistant, Oryvia gets you integrated in a matter of days.</p>
+    <div class="btn-row">
+      <a class="btn btn-onDark" href="#cta">Book a demo</a>
+      <a class="btn btn-outlineDark" href="#cta">Start for free</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="mark" href="#hero"><i></i>Oryvia</a>
+        <p class="fblurb">Oryvia builds the infrastructure of the AI agent economy, giving agents and their builders one integrated service across marketing growth, AI payments, fuel supply, and monetization.</p>
+      </div>
+      <div class="fcol">
+        <div class="fhead">Product</div>
+        <a href="#growth">Marketing Growth</a>
+        <a href="#payments">AI Payments</a>
+        <a href="#fuel">Fuel Supply</a>
+        <a href="#monetize">Monetization</a>
+      </div>
+      <div class="fcol">
+        <div class="fhead">Solutions</div>
+        <a href="#solutions">Developers</a>
+        <a href="#solutions">Enterprise</a>
+        <a href="#solutions">Compute Providers</a>
+        <a href="#solutions">Content Owners</a>
+        <a href="#solutions">Financial Partners</a>
+      </div>
+      <div class="fcol">
+        <div class="fhead">Resources</div>
+        <a href="#cta">Developer Docs</a>
+        <a href="#cta">API Reference</a>
+        <a href="#cta">Case Studies</a>
+        <a href="#cta">Blog</a>
+      </div>
+      <div class="fcol">
+        <div class="fhead">Company</div>
+        <a href="#why">About</a>
+        <a href="#solutions">Partners</a>
+        <a href="#cta">Careers</a>
+        <a href="#cta">Contact</a>
+      </div>
+    </div>
+    <div class="fbottom">
+      <p class="fnotice">Oryvia operates in accordance with local payment and data-protection regulations in each market it serves. Availability of the services described on this site may vary by region.</p>
+      <p class="fcopy">&copy; 2026 Oryvia. All rights reserved. ｜ Privacy Policy ｜ Terms of Service</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var nav = document.getElementById('nav');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.navlinks a'));
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  addEventListener('scroll', function(){ nav.classList.toggle('scrolled', scrollY > 8); }, {passive:true});
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var a = map[e.target.id];
+      if (a && e.isIntersecting) { links.forEach(function(l){ l.classList.remove('active'); }); a.classList.add('active'); }
+    });
+  }, {rootMargin:'-40% 0px -55% 0px'});
+  Object.keys(map).forEach(function(id){ var el = document.getElementById(id); if (el) io.observe(el); });
+})();
+</script>
+</body>
+</html>
